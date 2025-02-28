@@ -1,7 +1,7 @@
 package com.training.expenseTracker.service;
 
-import com.training.expenseTracker.exceptions.loginUserException;
-import com.training.expenseTracker.exceptions.userAlreadyExists;
+import com.training.expenseTracker.exceptions.userLoginException;
+import com.training.expenseTracker.exceptions.userAlreadyExistsException;
 import com.training.expenseTracker.model.User;
 import com.training.expenseTracker.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -22,22 +22,29 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public void registerUser(User user) throws userAlreadyExists{
+    public void registerUser(User user) throws userAlreadyExistsException {
         String email = user.getEmail();
 
-        if(userRepository.findByEmail(email).isPresent()) {
-            throw new userAlreadyExists();
-        }
+//        if(userRepository.findByEmail(email).isPresent()) {
+//            throw new userAlreadyExists();
+//        }
+//
+//        userRepository.save(user);
 
-        userRepository.save(user);
+        Optional<User> searchUser = userRepository.findByEmail(email);
+
+        if (searchUser.isPresent()) throw new userAlreadyExistsException(searchUser.get().getId(), searchUser.get().getName());
+        else{
+            userRepository.save(user);
+        }
     }
 
-    public void loginUser(String email, String password) throws loginUserException {
+    public void loginUser(String email, String password) throws userLoginException {
         Optional<User> user = userRepository.findByEmail(email);
 
         if(user.isPresent()) {
             if(!user.get().getPassword().equals(password)) {
-                throw new loginUserException();
+                throw new userLoginException();
             }
         }
     }

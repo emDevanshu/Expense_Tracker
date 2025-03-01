@@ -1,0 +1,12 @@
+// This is a JenkinsFile that will be used to build the project
+
+pipeline {
+    agent any
+    stages {
+        stage('Hello') {
+            steps {
+                echo 'Hello World, welcome to Jenkins'
+            }
+        }
+    }
+}

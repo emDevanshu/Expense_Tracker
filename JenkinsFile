@@ -2,16 +2,40 @@
 
 pipeline {
     agent any
+    tools {
+        maven "mvn"
+    }
     stages {
-        stage('Hello') {
-            steps {
-                echo 'Hello World, welcome to Jenkins'
-            }
-        }
-        stage('Git') {
+//     Checkout stage will be used to checkout the code from the repository
+        stage('Checkout') {
             steps {
                 git branch: 'main', credentialsId: 'Git token', url: 'https://github.com/emDevanshu/Expense_Tracker.git'
             }
+        }
+        stage('Build') {
+            steps {
+                script {
+                    sh "mvn clean install"
+                }
+            }
+        }
+        stage('Test') {
+            steps {
+                // Run tests with Maven
+                script {
+                    sh 'mvn test'
+                }
+            }
+        }
+    }
+    post {
+        success {
+            // Actions after the build succeeds
+            echo 'Build was successful!'
+        }
+        failure {
+            // Actions after the build fails
+            echo 'Build failed. Check logs.'
         }
     }
 }

@@ -8,5 +8,10 @@ pipeline {
                 echo 'Hello World, welcome to Jenkins'
             }
         }
+        stage('Git') {
+            steps {
+                git branch: 'main', credentialsId: 'Git token', url: 'https://github.com/emDevanshu/Expense_Tracker.git'
+            }
+        }
     }
 }

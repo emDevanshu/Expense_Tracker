@@ -16,6 +16,11 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @GetMapping("/welcome/{name}")
+    public String welcome(@PathVariable String name) {
+        return "Welcome to the project, " + name + "!!!";
+    }
+
     @GetMapping("/show")
     public List<User> getAllUsers() {
         return userService.getAllUsers();

@@ -33,6 +33,7 @@ pipeline {
                 deploy adapters: [tomcat9(credentialsId: 'Tomcat_deployer', path: '', url: 'http://localhost:8081/')], contextPath: null, war: '**/*.war'
             }
         }
+    }
 
     post {
         success {

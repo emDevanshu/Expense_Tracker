@@ -28,11 +28,11 @@ pipeline {
                 }
             }
         }
-        stage('Deploy to Tomcat') {
-            steps {
-                deploy adapters: [tomcat9(credentialsId: 'Tomcat_deployer', path: '', url: 'http://localhost:8081/')], contextPath: null, war: '**/*.war'
-            }
-        }
+//        stage('Deploy to Tomcat') {
+//            steps {
+//                deploy adapters: [tomcat9(credentialsId: 'Tomcat_deployer', path: '', url: 'http://localhost:8081/')], contextPath: null, war: '**/*.war'
+//            }
+//        }
     }
 
     post {

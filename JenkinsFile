@@ -6,15 +6,6 @@ pipeline {
         maven "mvn"
     }
 
-    environment {
-            TOMCAT_HOST = 'localhost'
-            TOMCAT_PORT = '8081'
-            TOMCAT_USER = 'tomcat'  // Tomcat username with manager role
-            TOMCAT_PASS = 'tomcat'  // Tomcat password with manager role
-            WAR_FILE = 'target/expenseTracker-0.0.1-SNAPSHOT.war'  // Path to your WAR file
-            TOMCAT_MANAGER_URL = "http://${TOMCAT_HOST}:${TOMCAT_PORT}/manager/html"
-        }
-
     stages {
 //     Checkout stage will be used to checkout the code from the repository
         stage('Checkout') {
@@ -39,17 +30,10 @@ pipeline {
         }
         stage('Deploy to Tomcat') {
             steps {
-                script {
-                    // Deploy the WAR to Tomcat using curl
-                    sh """
-                        curl -u ${TOMCAT_USER}:${TOMCAT_PASS} \
-                             --upload-file ${WAR_FILE} \
-                             ${TOMCAT_MANAGER_URL}/deploy?path=/expenseTracker&update=true
-                    """
-                }
+                deploy adapters: [tomcat9(credentialsId: 'Tomcat_deployer', path: '', url: 'http://localhost:8081/')], contextPath: null, war: '**/*.war'
             }
         }
-    }
+
     post {
         success {
             // Actions after the build succeeds

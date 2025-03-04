@@ -6,12 +6,12 @@ pipeline {
         maven "mvn"
     }
 
-    environment {
-        // Set the Render API Key as an environment variable for secure authentication
-        RENDER_API_KEY = credentials('rnd_uG2cEk6MxivJ80DskvRUyhJ8n4cz') // Replace with your Jenkins credentials ID
-        RENDER_SERVICE_ID = 'srv-cv2udl2j1k6c739pp0lg' // Replace with your Render service ID
-        GITHUB_REPO = 'https://github.com/emDevanshu/Expense_Tracker.git' // Replace with your GitHub repository URL
-    }
+//    environment {
+//        // Set the Render API Key as an environment variable for secure authentication
+//        RENDER_API_KEY = credentials('rnd_uG2cEk6MxivJ80DskvRUyhJ8n4cz') // Replace with your Jenkins credentials ID
+//        RENDER_SERVICE_ID = 'srv-cv2udl2j1k6c739pp0lg' // Replace with your Render service ID
+//        GITHUB_REPO = 'https://github.com/emDevanshu/Expense_Tracker.git' // Replace with your GitHub repository URL
+//    }
 
     stages {
 //     Checkout stage will be used to checkout the code from the repository

@@ -6,12 +6,14 @@ pipeline {
         maven "mvn"
     }
 
-//    environment {
-//        // Set the Render API Key as an environment variable for secure authentication
-//        RENDER_API_KEY = credentials('rnd_uG2cEk6MxivJ80DskvRUyhJ8n4cz') // Replace with your Jenkins credentials ID
-//        RENDER_SERVICE_ID = 'srv-cv2udl2j1k6c739pp0lg' // Replace with your Render service ID
-//        GITHUB_REPO = 'https://github.com/emDevanshu/Expense_Tracker.git' // Replace with your GitHub repository URL
-//    }
+    environment {
+        // Set the Render API Key as an environment variable for secure authentication
+        RENDER_API_KEY = credentials('render-api-key') // Replace with your Jenkins credentials ID
+        RENDER_SERVICE_ID = 'srv-cv2udl2j1k6c739pp0lg' // Replace with your Render service ID
+        GITHUB_REPO = 'https://github.com/emDevanshu/Expense_Tracker.git' // Replace with your GitHub repository URL
+        GITHUB_TOKEN = credentials('Git token') // Replace with your GitHub token credential ID
+        RENDER_DEPLOY_HOOK = "https://api.render.com/deploy/${RENDER_SERVICE_ID}?key=HH45VpzmZPA" // Replace with your actual Render deploy hook URL
+    }
 
     stages {
 //     Checkout stage will be used to checkout the code from the repository
@@ -39,15 +41,11 @@ pipeline {
         stage('Deploy to Render') {
             steps {
                 script {
-                    // Trigger Render deployment by making an API call
+                    // Trigger Render deployment using the deploy hook URL
                     def response = httpRequest(
-                            url: "https://api.render.com/v1/services/${RENDER_SERVICE_ID}/deploys",
-                            customHeaders: [[name: 'Authorization', value: "Bearer ${RENDER_API_KEY}"]],
+                            url: "${RENDER_DEPLOY_HOOK}",
                             httpMode: 'POST',
-                            contentType: 'APPLICATION_JSON',
-                            requestBody: '''{
-                            "branch": "main" // Deploy the 'main' branch (you can change this)
-                        }'''
+                            validResponseCodes: '200:299' // Ensure only valid responses trigger success
                     )
 
                     // Print the API response (for debugging)

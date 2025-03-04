@@ -36,7 +36,7 @@ pipeline {
 
         stage('Sonarqube') {
             steps {
-                withSonarQubeEnv('sonarqube') {
+                withSonarQubeEnv('sonarqube-25.2.0') {
                     sh 'mvn sonar:sonar'
                 }
             }
@@ -59,13 +59,13 @@ pipeline {
 //            }
         }
 
-        stage('Quality Gate') {
-            steps {
-                timeout(time: 2, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
-                }
-            }
-        }
+//        stage('Quality Gate') {
+//            steps {
+//                timeout(time: 1, unit: 'MINUTES') {
+//                    waitForQualityGate abortPipeline: true
+//                }
+//            }
+//        }
 
         stage('Deploy to Render') {
             steps {

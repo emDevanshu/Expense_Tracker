@@ -12,7 +12,6 @@
 	<artifactId>expenseTracker</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>expenseTracker</name>
-<!--	<packaging>war</packaging>-->
 	<description>We are creating an expense tracker application</description>
 	<url/>
 	<licenses>

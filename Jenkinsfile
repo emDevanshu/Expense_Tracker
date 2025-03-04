@@ -40,6 +40,23 @@ pipeline {
                     sh 'mvn sonar:sonar'
                 }
             }
+
+            post {
+                success {
+                    script {
+                        // Wait for the quality gate to finish
+                        def qualityGate = waitForQualityGate()
+                        if (qualityGate.status != 'OK') {
+                            error "SonarQube Quality Gate failed: ${qg.status}"
+                        } else {
+                            echo "SonarQube analysis passed."
+                        }
+                    }
+                }
+                failure {
+                    echo "SonarQube analysis failed during execution."
+                }
+            }
         }
 
         stage('Deploy to Render') {

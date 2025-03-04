@@ -7,9 +7,9 @@ pipeline {
     }
 
     environment {
-        RENDER_API_KEY = credentials('render-api-key') // Replace with your Jenkins credentials ID
-        RENDER_SERVICE_ID = 'srv-cv2udl2j1k6c739pp0lg' // Replace with your Render service ID
-        RENDER_DEPLOY_HOOK = "https://api.render.com/deploy/${RENDER_SERVICE_ID}?key=HH45VpzmZPA" // Replace with your actual Render deploy hook URL
+        RENDER_API_KEY = credentials('render-api-key')
+        RENDER_SERVICE_ID = 'srv-cv2udl2j1k6c739pp0lg'
+        RENDER_DEPLOY_HOOK = "https://api.render.com/deploy/${RENDER_SERVICE_ID}?key=HH45VpzmZPA"
     }
 
     stages {
@@ -43,19 +43,10 @@ pipeline {
                             httpMode: 'POST',
                             validResponseCodes: '200:299'
                     )
-
-                    // Print the API response (for debugging)
                     echo "Render API Response: ${response}"
                 }
             }
         }
-
-
-//        stage('Deploy to Tomcat') {
-//            steps {
-//                deploy adapters: [tomcat9(credentialsId: 'Tomcat_deployer', path: '', url: 'http://localhost:8081/')], contextPath: null, war: '**/*.war'
-//            }
-//        }
     }
 
     post {

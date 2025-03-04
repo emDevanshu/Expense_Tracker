@@ -34,6 +34,14 @@ pipeline {
             }
         }
 
+        stage('Sonarqube') {
+            steps {
+                withSonarQubeEnv('sonarqube') {
+                    sh 'mvn sonar:sonar'
+                }
+            }
+        }
+
         stage('Deploy to Render') {
             steps {
                 script {

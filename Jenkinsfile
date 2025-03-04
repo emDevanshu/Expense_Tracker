@@ -10,8 +10,8 @@ pipeline {
         // Set the Render API Key as an environment variable for secure authentication
         RENDER_API_KEY = credentials('render-api-key') // Replace with your Jenkins credentials ID
         RENDER_SERVICE_ID = 'srv-cv2udl2j1k6c739pp0lg' // Replace with your Render service ID
-        GITHUB_REPO = 'https://github.com/emDevanshu/Expense_Tracker.git' // Replace with your GitHub repository URL
-        GITHUB_TOKEN = credentials('Git token') // Replace with your GitHub token credential ID
+//        GITHUB_REPO = 'https://github.com/emDevanshu/Expense_Tracker.git' // Replace with your GitHub repository URL
+//        GITHUB_TOKEN = credentials('Git token') // Replace with your GitHub token credential ID
         RENDER_DEPLOY_HOOK = "https://api.render.com/deploy/${RENDER_SERVICE_ID}?key=HH45VpzmZPA" // Replace with your actual Render deploy hook URL
     }
 

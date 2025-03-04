@@ -43,35 +43,35 @@ public class UserServiceTest {
         verify(userRepository, times(1)).findAll();
     }
 
-//    @Test
-//    void testRegisterUser_Success() throws userAlreadyExistsException {
-//        when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.empty());
-//
-//        userService.registerUser(user);
-//
-//        verify(userRepository, times(1)).save(user);
-//    }
-//
-//    @Test
-//    void testRegisterUser_AlreadyExists() {
-//        when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
-//
-//        assertThrows(userAlreadyExistsException.class, () -> userService.registerUser(user));
-//
-//        verify(userRepository, never()).save(any(User.class));
-//    }
-//
-//    @Test
-//    void testLoginUser_Success() throws userLoginException {
-//        when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
-//
-//        assertDoesNotThrow(() -> userService.loginUser(user.getEmail(), user.getPassword()));
-//    }
-//
-//    @Test
-//    void testLoginUser_WrongPassword() {
-//        when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
-//
-//        assertThrows(userLoginException.class, () -> userService.loginUser(user.getEmail(), "wrongPassword"));
-//    }
+    @Test
+    void testRegisterUser_Success() throws userAlreadyExistsException {
+        when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.empty());
+
+        userService.registerUser(user);
+
+        verify(userRepository, times(1)).save(user);
+    }
+
+    @Test
+    void testRegisterUser_AlreadyExists() {
+        when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
+
+        assertThrows(userAlreadyExistsException.class, () -> userService.registerUser(user));
+
+        verify(userRepository, never()).save(any(User.class));
+    }
+
+    @Test
+    void testLoginUser_Success() throws userLoginException {
+        when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
+
+        assertDoesNotThrow(() -> userService.loginUser(user.getEmail(), user.getPassword()));
+    }
+
+    @Test
+    void testLoginUser_WrongPassword() {
+        when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
+
+        assertThrows(userLoginException.class, () -> userService.loginUser(user.getEmail(), "wrongPassword"));
+    }
 }

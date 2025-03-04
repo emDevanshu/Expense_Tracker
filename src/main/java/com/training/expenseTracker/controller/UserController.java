@@ -18,7 +18,7 @@ public class UserController {
 
     @GetMapping("/hello")
     public String display(){
-        return "Welcome to Devanshu Sharma's Expense Tracker Application";
+        return "Hello!! You successfully created your first API";
     }
 
     @GetMapping("/show")

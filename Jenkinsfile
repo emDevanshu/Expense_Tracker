@@ -7,16 +7,12 @@ pipeline {
     }
 
     environment {
-        // Set the Render API Key as an environment variable for secure authentication
         RENDER_API_KEY = credentials('render-api-key') // Replace with your Jenkins credentials ID
         RENDER_SERVICE_ID = 'srv-cv2udl2j1k6c739pp0lg' // Replace with your Render service ID
-//        GITHUB_REPO = 'https://github.com/emDevanshu/Expense_Tracker.git' // Replace with your GitHub repository URL
-//        GITHUB_TOKEN = credentials('Git token') // Replace with your GitHub token credential ID
         RENDER_DEPLOY_HOOK = "https://api.render.com/deploy/${RENDER_SERVICE_ID}?key=HH45VpzmZPA" // Replace with your actual Render deploy hook URL
     }
 
     stages {
-//     Checkout stage will be used to checkout the code from the repository
         stage('Checkout') {
             steps {
                 git branch: 'main', credentialsId: 'Git token', url: 'https://github.com/emDevanshu/Expense_Tracker.git'
@@ -45,7 +41,7 @@ pipeline {
                     def response = httpRequest(
                             url: "${RENDER_DEPLOY_HOOK}",
                             httpMode: 'POST',
-                            validResponseCodes: '200:299' // Ensure only valid responses trigger success
+                            validResponseCodes: '200:299'
                     )
 
                     // Print the API response (for debugging)

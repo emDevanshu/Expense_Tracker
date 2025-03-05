@@ -41,31 +41,32 @@ pipeline {
                 }
             }
 
-//            post {
-//                success {
-//                    script {
-//                        // Wait for the quality gate to finish
-//                        def qualityGate = waitForQualityGate()
-//                        if (qualityGate.status != 'OK') {
-//                            error "SonarQube Quality Gate failed: ${qg.status}"
-//                        } else {
-//                            echo "SonarQube analysis passed."
-//                        }
-//                    }
-//                }
-//                failure {
-//                    echo "SonarQube analysis failed during execution."
-//                }
-//            }
-        }
-
-        stage('Quality Gate') {
-            steps {
-                timeout(time: 1, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
+            post {
+                success {
+                    script {
+                        timeout(time: 1, unit: 'MINUTES') {
+                            def qualityGate = waitForQualityGate()
+                            if (qualityGate.status != 'OK') {
+                                error "SonarQube Quality Gate failed: ${qualityGate.status}"
+                            } else {
+                                echo "SonarQube analysis passed."
+                            }
+                        }
+                    }
+                }
+                failure {
+                    echo "SonarQube analysis failed during execution."
                 }
             }
         }
+
+//        stage('Quality Gate') {
+//            steps {
+//                timeout(time: 1, unit: 'MINUTES') {
+//                    waitForQualityGate abortPipeline: true
+//                }
+//            }
+//        }
 
         stage('Deploy to Render') {
             steps {

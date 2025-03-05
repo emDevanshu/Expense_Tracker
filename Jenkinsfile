@@ -13,12 +13,19 @@ pipeline {
     }
 
     stages {
-//        stage('Checkout') {
-//            steps {
+        stage('Checkout') {
+            steps {
+                script{
+                    checkout([$class: 'GitSCM', branches: [[name: 'main']],
+                              doGenerateSubmoduleConfigurations: false,
+                              extensions: [[$class: 'CleanCheckout']],
+                              submoduleCfg: [],
+                              userRemoteConfigs: [[credentialsId: 'Git token', url: 'https://github.com/emDevanshu/Expense_Tracker.git']]
+                    ])
+                }
 //                git branch: 'main', credentialsId: 'Git token', url: 'https://github.com/emDevanshu/Expense_Tracker.git'
-//                checkout scm
-//            }
-//        }
+            }
+        }
         stage('Build') {
             steps {
                 script {

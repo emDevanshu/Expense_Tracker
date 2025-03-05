@@ -2,6 +2,9 @@
 
 pipeline {
     agent any
+    options {
+        skipDefaultCheckout()
+    }
     tools {
         maven "mvn"
     }

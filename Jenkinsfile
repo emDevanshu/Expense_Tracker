@@ -1,10 +1,10 @@
 // This is a JenkinsFile that will be used to build the project
 
 pipeline {
-    agent any
-//    tools {
-//        maven "mvn"
-//    }
+//    agent any
+    tools {
+        maven "mvn"
+    }
 
     environment {
         RENDER_API_KEY = credentials('render-api-key')

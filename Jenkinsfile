@@ -1,7 +1,7 @@
 // This is a JenkinsFile that will be used to build the project
 
 pipeline {
-//    agent any
+    agent any
     tools {
         maven "mvn"
     }

@@ -2,9 +2,9 @@
 
 pipeline {
     agent any
-    tools {
-        maven "mvn"
-    }
+//    tools {
+//        maven "mvn"
+//    }
 
     environment {
         RENDER_API_KEY = credentials('render-api-key')
@@ -27,14 +27,13 @@ pipeline {
         }
         stage('Test') {
             steps {
-                // Run tests with Maven
                 script {
                     sh 'mvn test'
                 }
             }
         }
 
-        stage('Sonarqube') {
+        stage('Sonar') {
             steps {
                 withSonarQubeEnv('sonarqube-25.2.0') {
                     sh 'mvn sonar:sonar'
@@ -59,15 +58,6 @@ pipeline {
                 }
             }
         }
-
-//        stage('Quality Gate') {
-//            steps {
-//                timeout(time: 1, unit: 'MINUTES') {
-//                    waitForQualityGate abortPipeline: true
-//                }
-//            }
-//        }
-
         stage('Deploy to Render') {
             steps {
                 script {
@@ -87,12 +77,10 @@ pipeline {
         success {
             // Actions after the build succeeds
             echo 'Build was successful!'
-            echo 'Deployed to Tomcat!'
         }
         failure {
             // Actions after the build fails
             echo 'Build failed. Check logs.'
-            echo 'Deployment to Tomcat failed.'
         }
     }
 }

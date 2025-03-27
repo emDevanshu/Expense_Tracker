@@ -17,3 +17,4 @@ public class ExpenseTrackerApplication extends SpringBootServletInitializer {
 		SpringApplication.run(ExpenseTrackerApplication.class, args);
 	}
 }
+

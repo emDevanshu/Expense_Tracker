@@ -6,6 +6,7 @@ import com.training.expenseTracker.model.User;
 import com.training.expenseTracker.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -47,5 +48,29 @@ public class UserService {
                 throw new userLoginException();
             }
         }
+    }
+
+    public User getUserById(Integer id) {
+        Optional<User> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            return user.get();
+        } else {
+            throw new RuntimeException("User not found with id: " + id);
+        }
+    }
+
+    public User addUser(String name,  String email,  String password) {
+        User newUser = new User(null, name, email, password);
+        return userRepository.save(newUser);
+    }
+
+    public User addUserInput(User user) {
+        return userRepository.save(user);
+    }
+
+    public User updateUserEmail(Integer id, String email) {
+        User user = getUserById(id);
+        user.setEmail(email);
+        return userRepository.save(user);
     }
 }

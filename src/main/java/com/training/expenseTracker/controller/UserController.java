@@ -93,5 +93,3 @@ public class UserController {
 
     record UserInput(String name, String email, String password) {}
 }
-
-

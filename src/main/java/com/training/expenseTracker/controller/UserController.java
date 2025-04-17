@@ -93,8 +93,3 @@ public class UserController {
 
     record UserInput(String name, String email, String password) {}
 }
-// change 1
-// change 2
-// add 1
-// add 2
-// add 3

@@ -38,7 +38,7 @@ pipeline {
 
         stage('Sonar') {
             steps {
-                withSonarQubeEnv('sonarqube-25.2.0') {
+                withSonarQubeEnv('sonarqube-25.4.0.105899') {
                     sh 'mvn sonar:sonar'
                 }
             }

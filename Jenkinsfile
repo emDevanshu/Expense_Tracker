@@ -21,13 +21,34 @@ pipeline {
                 git branch: 'main', credentialsId: 'Git token', url: 'https://github.com/emDevanshu/Expense_Tracker.git'
             }
         }
+//        stage('Build') {
+//            steps {
+//                script {
+//                    sh "cd expense-tracker-service && mvn clean install"
+//                }
+//            }
+//        }
         stage('Build') {
-            steps {
-                script {
-                    sh "cd expense-tracker-service && mvn clean install"
+            parallel {
+                stage('Java') {
+                    steps {
+                        dir('expense-tracker-service') {
+                            sh 'mvn clean install'
+                        }
+                    }
+                }
+
+                stage('Angular') {
+                    steps {
+                        dir('expense-tracker-ui') {
+                            sh 'npm install'
+                            sh 'ng build --configuration production'
+                        }
+                    }
                 }
             }
         }
+
         stage('Test') {
             steps {
                 script {

@@ -1,12 +1,12 @@
 package com.training.expenseTracker.service;
 
-import com.training.expenseTracker.exceptions.userLoginException;
-import com.training.expenseTracker.exceptions.userAlreadyExistsException;
+import com.training.expenseTracker.exceptions.UserLoginException;
+import com.training.expenseTracker.exceptions.UserAlreadyExistsException;
+import com.training.expenseTracker.exceptions.UserNotExistsException;
 import com.training.expenseTracker.model.User;
 import com.training.expenseTracker.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,30 +23,24 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public void registerUser(User user) throws userAlreadyExistsException {
+    public void registerUser(User user) throws UserAlreadyExistsException {
         String email = user.getEmail();
-
-//        if(userRepository.findByEmail(email).isPresent()) {
-//            throw new userAlreadyExists();
-//        }
-//
-//        userRepository.save(user);
-
         Optional<User> searchUser = userRepository.findByEmail(email);
 
-        if (searchUser.isPresent()) throw new userAlreadyExistsException(searchUser.get().getId(), searchUser.get().getName());
-        else{
-            userRepository.save(user);
-        }
+        if (searchUser.isPresent()) throw new UserAlreadyExistsException(searchUser.get().getId(), searchUser.get().getName());
+        else userRepository.save(user);
     }
 
-    public void loginUser(String email, String password) throws userLoginException {
+    public void loginUser(String email, String password) throws UserLoginException, UserNotExistsException {
         Optional<User> user = userRepository.findByEmail(email);
 
         if(user.isPresent()) {
             if(!user.get().getPassword().equals(password)) {
-                throw new userLoginException();
+                throw new UserLoginException();
             }
+        }
+        else {
+            throw new UserNotExistsException();
         }
     }
 

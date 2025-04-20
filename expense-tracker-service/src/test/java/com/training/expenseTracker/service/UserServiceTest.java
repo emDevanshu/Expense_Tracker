@@ -1,7 +1,7 @@
 package com.training.expenseTracker.service;
 
-import com.training.expenseTracker.exceptions.userAlreadyExistsException;
-import com.training.expenseTracker.exceptions.userLoginException;
+import com.training.expenseTracker.exceptions.UserAlreadyExistsException;
+import com.training.expenseTracker.exceptions.UserLoginException;
 import com.training.expenseTracker.model.User;
 import com.training.expenseTracker.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -44,7 +44,7 @@ public class UserServiceTest {
     }
 
     @Test
-    void testRegisterUser_Success() throws userAlreadyExistsException {
+    void testRegisterUser_Success() throws UserAlreadyExistsException {
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.empty());
 
         userService.registerUser(user);
@@ -56,13 +56,13 @@ public class UserServiceTest {
     void testRegisterUser_AlreadyExists() {
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
 
-        assertThrows(userAlreadyExistsException.class, () -> userService.registerUser(user));
+        assertThrows(UserAlreadyExistsException.class, () -> userService.registerUser(user));
 
         verify(userRepository, never()).save(any(User.class));
     }
 
     @Test
-    void testLoginUser_Success() throws userLoginException {
+    void testLoginUser_Success() throws UserLoginException {
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
 
         assertDoesNotThrow(() -> userService.loginUser(user.getEmail(), user.getPassword()));
@@ -72,6 +72,6 @@ public class UserServiceTest {
     void testLoginUser_WrongPassword() {
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
 
-        assertThrows(userLoginException.class, () -> userService.loginUser(user.getEmail(), "wrongPassword"));
+        assertThrows(UserLoginException.class, () -> userService.loginUser(user.getEmail(), "wrongPassword"));
     }
 }

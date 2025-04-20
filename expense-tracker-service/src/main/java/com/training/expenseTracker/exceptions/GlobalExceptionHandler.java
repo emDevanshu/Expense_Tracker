@@ -9,15 +9,20 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(userLoginException.class)
-    public ResponseEntity<UserErrorDTO> handleUserLoginException(userLoginException e) {
+    @ExceptionHandler(UserLoginException.class)
+    public ResponseEntity<UserErrorDTO> handleUserLoginException(UserLoginException e) {
         UserErrorDTO userErrorDTO = new UserErrorDTO(e.getMessage());
         return new ResponseEntity<>(userErrorDTO, HttpStatus.UNAUTHORIZED);
     }
 
-    @ExceptionHandler(userAlreadyExistsException.class)
-    public ResponseEntity<UserErrorDTO> handleUserAlreadyExists(userAlreadyExistsException e) {
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public ResponseEntity<UserErrorDTO> handleUserAlreadyExists(UserAlreadyExistsException e) {
         UserErrorDTO userErrorDTO = new UserErrorDTO(e.getMessage());
         return new ResponseEntity<>(userErrorDTO, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(ExpenseNotFoundException.class)
+    public ResponseEntity<?> handleExpenseNotFoundException(ExpenseNotFoundException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 }

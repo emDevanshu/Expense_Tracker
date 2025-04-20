@@ -24,22 +24,24 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    sh "mvn clean install"
+                    sh "cd expense-tracker-service && mvn clean install"
                 }
             }
         }
         stage('Test') {
             steps {
                 script {
-                    sh 'mvn test'
+                    sh 'cd expense-tracker-service && mvn test'
                 }
             }
         }
 
         stage('Sonar') {
             steps {
-                withSonarQubeEnv('sonarqube-25.4.0.105899') {
-                    sh 'mvn sonar:sonar'
+                dir('expense-tracker-service') {
+                    withSonarQubeEnv('sonarqube-25.4.0.105899') {
+                        sh 'mvn sonar:sonar'
+                    }
                 }
             }
 

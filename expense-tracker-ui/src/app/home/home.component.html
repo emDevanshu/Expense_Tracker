@@ -1,0 +1,62 @@
+<div class="home-container">
+  <h2>Welcome to Expense Tracker</h2>
+
+  <form (ngSubmit)="addExpense()" #expenseForm="ngForm">
+    <div>
+      <label for="title">Title</label>
+      <input type="text" id="title" name="title" [(ngModel)]="newExpense.title" required />
+    </div>
+
+    <div>
+      <label for="amount">Amount</label>
+      <input type="number" id="amount" name="amount" [(ngModel)]="newExpense.amount" required />
+    </div>
+
+    <!-- Category -->
+    <div>
+      <label for="category">Category</label>
+      <select id="category" name="category" [(ngModel)]="newExpense.category" required>
+        <option value="" disabled selected>Select a category</option>
+        <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+      </select>
+    </div>
+
+
+    <button type="submit" [disabled]="!expenseForm.form.valid">Add Expense</button>
+  </form>
+
+  <div *ngIf="expenses.length > 0; else noDataCard" class="expense-list">
+    <h3>Your Expenses</h3>
+    <table class="expense-table">
+      <thead>
+      <tr>
+        <th>Title</th>
+        <th>Amount (₹)</th>
+        <th>Category</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let exp of expenses; let i = index">
+        <td>{{ exp.title }}</td>
+        <td>{{ exp.amount }}</td>
+        <td>{{ exp.category }}</td>
+        <td>
+          <button class="delete-btn" (click)="deleteExpense(i)">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #noDataCard>
+    <div class="no-data-card">
+      <p>No Expenses Found!</p>
+    </div>
+  </ng-template>
+
+</div>
+
+

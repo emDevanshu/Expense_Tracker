@@ -1,0 +1,398 @@
+/*.home-container {*/
+/*  max-width: 600px;*/
+/*  margin: 50px auto;*/
+/*  padding: 20px;*/
+/*  background-color: #f9f9f9;*/
+/*  border-radius: 8px;*/
+/*  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);*/
+/*}*/
+
+/*!* Header for the page *!*/
+/*h2 {*/
+/*  text-align: center;*/
+/*  font-size: 28px;*/
+/*  font-weight: 600;*/
+/*  color: #3f51b5;*/
+/*  margin-bottom: 20px;*/
+/*}*/
+
+/*!* Form container styling *!*/
+/*form {*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*  gap: 20px;*/
+/*}*/
+
+/*!* Label styling *!*/
+/*label {*/
+/*  font-size: 16px;*/
+/*  font-weight: 500;*/
+/*  color: #333;*/
+/*  margin-bottom: 8px;*/
+/*}*/
+
+/*!* Input fields for title, amount, and category *!*/
+/*input {*/
+/*  padding: 12px;*/
+/*  font-size: 16px;*/
+/*  border-radius: 6px;*/
+/*  border: 1px solid #ddd;*/
+/*  width: 100%;*/
+/*  !*margin-bottom: 20px;*!*/
+/*  transition: border-color 0.3s ease;*/
+/*}*/
+
+/*!* Focus effect for input fields *!*/
+/*input:focus {*/
+/*  border-color: #3f51b5;*/
+/*  outline: none;*/
+/*  box-shadow: 0 0 5px rgba(63, 81, 181, 0.3);*/
+/*}*/
+
+/*!* Button styling *!*/
+/*button {*/
+/*  padding: 12px;*/
+/*  font-size: 16px;*/
+/*  background-color: #3f51b5;*/
+/*  color: white;*/
+/*  border: none;*/
+/*  border-radius: 6px;*/
+/*  cursor: pointer;*/
+/*  transition: background-color 0.3s ease;*/
+/*}*/
+
+/*!* Button hover effect *!*/
+/*button:hover {*/
+/*  background-color: #303f9f;*/
+/*}*/
+
+/*!* Disable button styling *!*/
+/*button:disabled {*/
+/*  background-color: #ccc;*/
+/*  cursor: not-allowed;*/
+/*}*/
+
+/*!* Expense list section styling *!*/
+/*.expense-list {*/
+/*  margin-top: 30px;*/
+/*  padding: 20px;*/
+/*  background-color: #fff;*/
+/*  border-radius: 8px;*/
+/*  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);*/
+/*}*/
+
+/*.expense-list h3 {*/
+/*  font-size: 22px;*/
+/*  color: #3f51b5;*/
+/*  margin-bottom: 15px;*/
+/*}*/
+
+/*!* Styling for the expense items list *!*/
+/*ul {*/
+/*  list-style-type: none;*/
+/*  padding-left: 0;*/
+/*}*/
+
+/*li {*/
+/*  font-size: 16px;*/
+/*  color: #555;*/
+/*  border-bottom: 1px solid #ddd;*/
+/*  padding: 10px 0;*/
+/*}*/
+
+/*li:last-child {*/
+/*  border-bottom: none;*/
+/*}*/
+
+/*!* Styling the container for the category field *!*/
+/*div {*/
+/*  margin-bottom: 15px;*/
+/*}*/
+
+/*!* Label styling *!*/
+/*label {*/
+/*  font-size: 16px;*/
+/*  font-weight: 500;*/
+/*  display: block;*/
+/*  margin-bottom: 5px;*/
+/*}*/
+
+/*!* Dropdown (select) styling *!*/
+/*select {*/
+/*  width: 100%;  !* Full width *!*/
+/*  padding: 10px;  !* Padding inside the dropdown *!*/
+/*  font-size: 16px;  !* Font size *!*/
+/*  border: 1px solid #ccc;  !* Light border *!*/
+/*  border-radius: 4px;  !* Rounded corners *!*/
+/*  background-color: #f9f9f9;  !* Light background color *!*/
+/*  outline: none;  !* Remove outline when focused *!*/
+/*  box-sizing: border-box;  !* Make sure padding is included in width calculation *!*/
+/*  transition: border 0.3s ease, background-color 0.3s ease;  !* Smooth transition effect *!*/
+/*}*/
+
+/*!* Change the border color when the dropdown is focused *!*/
+/*select:focus {*/
+/*  border-color: #4caf50;  !* Green border on focus *!*/
+/*  background-color: #e8f5e9;  !* Light green background on focus *!*/
+/*}*/
+
+/*!* Placeholder styling *!*/
+/*option[disabled] {*/
+/*  color: #888;  !* Gray color for placeholder *!*/
+/*}*/
+
+/*!* Responsive design for smaller screens *!*/
+/*@media (max-width: 600px) {*/
+/*  select {*/
+/*    font-size: 14px;  !* Smaller font size for mobile *!*/
+/*  }*/
+/*}*/
+
+
+
+
+/*!* Container for the expense list *!*/
+/*.expense-list {*/
+/*  margin: 30px auto;*/
+/*  max-width: 800px;*/
+/*  padding: 20px;*/
+/*  background-color: #f9f9f9; !* Light background *!*/
+/*  border-radius: 10px;*/
+/*  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);*/
+/*}*/
+
+/*!* Heading style *!*/
+/*.expense-list h3 {*/
+/*  text-align: center;*/
+/*  margin-bottom: 20px;*/
+/*  color: #3f51b5; !* Primary color *!*/
+/*}*/
+
+/*!* Table styles *!*/
+/*.expense-table {*/
+/*  width: 100%;*/
+/*  border-collapse: collapse;*/
+/*  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;*/
+/*}*/
+
+/*!* Table headers *!*/
+/*.expense-table thead {*/
+/*  background-color: #3f51b5; !* Primary color *!*/
+/*  color: white;*/
+/*}*/
+
+/*.expense-table th,*/
+/*.expense-table td {*/
+/*  padding: 12px 16px;*/
+/*  text-align: left;*/
+/*  border-bottom: 1px solid #ddd;*/
+/*}*/
+
+/*.no-data-card {*/
+/*  background-color: #f8d7da;*/
+/*  color: #721c24;*/
+/*  padding: 20px;*/
+/*  border: 1px solid #f5c6cb;*/
+/*  border-radius: 5px;*/
+/*  text-align: center;*/
+/*  margin-top: 20px;*/
+/*}*/
+
+/*.delete-btn {*/
+/*  background: none;*/
+/*  border: none;*/
+/*  color: #d9534f; !* Red color for the delete button *!*/
+/*  font-size: 16px; !* Set the icon size *!*/
+/*  cursor: pointer;*/
+/*  outline: none;*/
+/*}*/
+
+/*.delete-btn:hover {*/
+/*  color: #c9302c; !* Slightly darker red on hover *!*/
+/*  background: none; !* Ensure no background color on hover *!*/
+/*  transform: scale(1.2);*/
+/*  transition: transform 0.2s ease;*/
+/*}*/
+
+
+
+
+
+
+
+.home-container {
+  max-width: 520px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(63, 81, 181, 0.08);
+  padding: 36px 32px 32px 32px;
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+}
+
+h2 {
+  text-align: center;
+  color: #2d3a4b;
+  margin-bottom: 28px;
+  letter-spacing: 1px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-bottom: 32px;
+}
+
+form div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+label {
+  font-weight: 500;
+  color: #495464;
+  margin-bottom: 2px;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  padding: 10px 12px;
+  border: 1.5px solid #e0e6ed;
+  border-radius: 7px;
+  font-size: 1rem;
+  background: #f8fafc;
+  transition: border-color 0.2s;
+  outline: none;
+}
+
+input:focus,
+select:focus {
+  border-color: #6c63ff;
+  background: #f0f2ff;
+}
+
+button[type="submit"] {
+  margin-top: 6px;
+  padding: 10px 0;
+  background: #3f51b5;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: none;
+  transition: background 0.15s, opacity 0.15s;
+}
+
+button[type="submit"]:disabled {
+  background: #d3d8ee;
+  color: #a5aacb;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+button[type="submit"]:not(:disabled):hover {
+  background: #32408f;
+  opacity: 0.95;
+}
+
+
+.expense-list {
+  margin-top: 12px;
+}
+
+h3 {
+  color: #223cdc;
+  margin-bottom: 12px;
+  font-size: 1.15rem;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+
+.expense-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #f5f8ff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(63, 81, 181, 0.07);
+}
+
+.expense-table th,
+.expense-table td {
+  padding: 13px 10px;
+  text-align: left;
+}
+
+.expense-table th {
+  background: #3f51b5;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.06rem;
+  letter-spacing: 0.8px;
+  border-bottom: 3px solid #283593;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  box-shadow: 0 2px 4px rgba(63, 81, 181, 0.05);
+}
+
+
+.expense-table tr {
+  transition: background 0.15s;
+}
+
+.expense-table tbody tr:hover {
+  background: #e3e7fa;
+}
+
+.expense-table td {
+  color: #2d3a4b;
+  font-size: 1rem;
+}
+
+
+.delete-btn {
+  background: none;
+  border: none;
+  color: #ff4d6d;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 5px;
+  transition: color 0.15s, transform 0.12s;
+}
+
+.delete-btn:hover {
+  color: #d72660;
+  transform: scale(1.15);
+  /* No background change */
+}
+
+.no-data-card {
+  margin-top: 30px;
+  background: #f8fafc;
+  border: 1.5px dashed #bfc7e0;
+  padding: 32px 0;
+  border-radius: 9px;
+  text-align: center;
+  color: #a5aacb;
+  font-size: 1.14rem;
+  letter-spacing: 0.2px;
+}
+
+@media (max-width: 600px) {
+  .home-container {
+    padding: 20px 7px 25px 7px;
+    max-width: 98vw;
+  }
+  .expense-table th,
+  .expense-table td {
+    padding: 9px 4px;
+    font-size: 0.98rem;
+  }
+}

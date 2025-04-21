@@ -12,8 +12,10 @@ pipeline {
 
     environment {
         RENDER_API_KEY = credentials('render-api-key')
-        RENDER_SERVICE_ID = 'srv-cv2udl2j1k6c739pp0lg'
-        RENDER_DEPLOY_HOOK = "https://api.render.com/deploy/${RENDER_SERVICE_ID}?key=HH45VpzmZPA"
+        RENDER_BACKEND_SERVICE_ID = 'srv-cv2udl2j1k6c739pp0lg'
+        RENDER_BACKEND_DEPLOY_HOOK = "https://api.render.com/deploy/${RENDER_BACKEND_SERVICE_ID}?key=HH45VpzmZPA"
+        RENDER_FRONTEND_SERVICE_ID = 'srv-d02k9ajuibrs73avrthg'
+        RENDER_FRONTEND_DEPLOY_HOOK = "https://api.render.com/deploy/${RENDER_FRONTEND_SERVICE_ID}?key=HH45VpzmZPA"
     }
 
     stages {
@@ -58,43 +60,51 @@ pipeline {
             }
         }
 
-//        stage('Sonar') {
-//            steps {
-//                dir('expense-tracker-service') {
-//                    withSonarQubeEnv('sonarqube-25.4.0.105899') {
-//                        sh 'mvn sonar:sonar'
-//                    }
-//                }
-//            }
-//
-//            post {
-//                success {
-//                    script {
-//                        timeout(time: 2, unit: 'MINUTES') {
-//                            def qualityGate = waitForQualityGate()
-//                            if (qualityGate.status != 'OK') {
-//                                error "SonarQube Quality Gate failed: ${qualityGate.status}"
-//                            } else {
-//                                echo "SonarQube analysis passed."
-//                            }
-//                        }
-//                    }
-//                }
-//                failure {
-//                    echo "SonarQube analysis failed during execution."
-//                }
-//            }
-//        }
+        stage('Sonar') {
+            steps {
+                dir('expense-tracker-service') {
+                    withSonarQubeEnv('sonarqube-25.4.0.105899') {
+                        sh 'mvn sonar:sonar'
+                    }
+                }
+            }
+
+            post {
+                success {
+                    script {
+                        timeout(time: 2, unit: 'MINUTES') {
+                            def qualityGate = waitForQualityGate()
+                            if (qualityGate.status != 'OK') {
+                                error "SonarQube Quality Gate failed: ${qualityGate.status}"
+                            } else {
+                                echo "SonarQube analysis passed."
+                            }
+                        }
+                    }
+                }
+                failure {
+                    echo "SonarQube analysis failed during execution."
+                }
+            }
+        }
         stage('Deploy to Render') {
             steps {
                 script {
                     // Trigger Render deployment using the deploy hook URL
-                    def response = httpRequest(
-                            url: "${RENDER_DEPLOY_HOOK}",
+                    def backendResponse = httpRequest(
+                            url: "${RENDER_BACKEND_DEPLOY_HOOK}",
                             httpMode: 'POST',
                             validResponseCodes: '200:299'
                     )
-                    echo "Render API Response: ${response}"
+                    echo "Render Backend API Response: ${backendResponse}"
+
+                    // Trigger Render deployment using the deploy hook URL
+                    def frontendResponse = httpRequest(
+                            url: "${RENDER_FRONTEND_DEPLOY_HOOK}",
+                            httpMode: 'POST',
+                            validResponseCodes: '200:299'
+                    )
+                    echo "Render Frontend API Response: ${frontendResponse}"
                 }
             }
         }

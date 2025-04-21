@@ -85,19 +85,19 @@ pipeline {
                 }
             }
         }
-        stage('Deploy to Render') {
-            steps {
-                script {
-                    // Trigger Render deployment using the deploy hook URL
-                    def response = httpRequest(
-                            url: "${RENDER_DEPLOY_HOOK}",
-                            httpMode: 'POST',
-                            validResponseCodes: '200:299'
-                    )
-                    echo "Render API Response: ${response}"
-                }
-            }
-        }
+//        stage('Deploy to Render') {
+//            steps {
+//                script {
+//                    // Trigger Render deployment using the deploy hook URL
+//                    def response = httpRequest(
+//                            url: "${RENDER_DEPLOY_HOOK}",
+//                            httpMode: 'POST',
+//                            validResponseCodes: '200:299'
+//                    )
+//                    echo "Render API Response: ${response}"
+//                }
+//            }
+//        }
     }
 
     post {

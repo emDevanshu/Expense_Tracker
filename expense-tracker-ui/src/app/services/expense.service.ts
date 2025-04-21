@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Expense} from "../shared/models/expense.model";
+import {environment} from "../../environments/environment.prod";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ExpenseService {
-  private baseUrl = 'http://localhost:9876/api/v1/expense';
+  private baseUrl = environment.baseUrl;
 
   constructor(private http : HttpClient) { }
 

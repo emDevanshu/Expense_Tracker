@@ -58,46 +58,46 @@ pipeline {
             }
         }
 
-        stage('Sonar') {
-            steps {
-                dir('expense-tracker-service') {
-                    withSonarQubeEnv('sonarqube-25.4.0.105899') {
-                        sh 'mvn sonar:sonar'
-                    }
-                }
-            }
-
-            post {
-                success {
-                    script {
-                        timeout(time: 2, unit: 'MINUTES') {
-                            def qualityGate = waitForQualityGate()
-                            if (qualityGate.status != 'OK') {
-                                error "SonarQube Quality Gate failed: ${qualityGate.status}"
-                            } else {
-                                echo "SonarQube analysis passed."
-                            }
-                        }
-                    }
-                }
-                failure {
-                    echo "SonarQube analysis failed during execution."
-                }
-            }
-        }
-//        stage('Deploy to Render') {
+//        stage('Sonar') {
 //            steps {
-//                script {
-//                    // Trigger Render deployment using the deploy hook URL
-//                    def response = httpRequest(
-//                            url: "${RENDER_DEPLOY_HOOK}",
-//                            httpMode: 'POST',
-//                            validResponseCodes: '200:299'
-//                    )
-//                    echo "Render API Response: ${response}"
+//                dir('expense-tracker-service') {
+//                    withSonarQubeEnv('sonarqube-25.4.0.105899') {
+//                        sh 'mvn sonar:sonar'
+//                    }
+//                }
+//            }
+//
+//            post {
+//                success {
+//                    script {
+//                        timeout(time: 2, unit: 'MINUTES') {
+//                            def qualityGate = waitForQualityGate()
+//                            if (qualityGate.status != 'OK') {
+//                                error "SonarQube Quality Gate failed: ${qualityGate.status}"
+//                            } else {
+//                                echo "SonarQube analysis passed."
+//                            }
+//                        }
+//                    }
+//                }
+//                failure {
+//                    echo "SonarQube analysis failed during execution."
 //                }
 //            }
 //        }
+        stage('Deploy to Render') {
+            steps {
+                script {
+                    // Trigger Render deployment using the deploy hook URL
+                    def response = httpRequest(
+                            url: "${RENDER_DEPLOY_HOOK}",
+                            httpMode: 'POST',
+                            validResponseCodes: '200:299'
+                    )
+                    echo "Render API Response: ${response}"
+                }
+            }
+        }
     }
 
     post {

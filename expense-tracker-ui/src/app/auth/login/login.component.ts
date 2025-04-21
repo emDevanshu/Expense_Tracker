@@ -19,7 +19,7 @@ export class LoginComponent {
     if (isSuccess) {
       this.router.navigate(['/home']);
     } else {
-      this.errorMessage = 'Invalid credentials, plz try again';
+      this.errorMessage = 'Invalid credentials, please try again!';
     }
   }
 

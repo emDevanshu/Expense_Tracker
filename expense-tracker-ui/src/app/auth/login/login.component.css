@@ -70,9 +70,15 @@ button:hover {
 
 /* Error message styling */
 .error-message {
-    color: red;
+    color: #d8000c;              /* Softer red */
+    background: #fff4f4;         /* Subtle red-tinted background */
     font-size: 14px;
-    font-weight: bold;
-    margin-top: 10px;
+    margin-top: 12px;
     text-align: center;
+    border-radius: 6px;          /* Rounded corners */
+    padding: 8px 16px;           /* Gentle padding */
+    border: 1px solid #ffd2d2;   /* Thin, light border */
+    font-weight: 500;            /* Slightly bolder text */
+    box-shadow: 0 1px 3px rgba(216,0,12,0.04); /* Soft shadow for depth */
 }
+

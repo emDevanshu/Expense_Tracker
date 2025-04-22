@@ -90,21 +90,36 @@ pipeline {
         stage('Deploy to Render') {
             steps {
                 script {
-                    // Trigger Render deployment using the deploy hook URL
-                    def backendResponse = httpRequest(
-                            url: "${RENDER_BACKEND_DEPLOY_HOOK}",
-                            httpMode: 'POST',
-                            validResponseCodes: '200:299'
-                    )
-                    echo "Render Backend API Response: ${backendResponse}"
+
+                    def changedFiles = sh(script: 'git diff --name-only HEAD HEAD~1', returnStdout: true).trim();
+//                    def changedFiles = sh(script: 'git diff --name-only HEAD HEAD~1', returnStdout: true).split('\n');
+                    echo "Changed files:\n${changedFiles.join('\n')}"
+
+//                    def backendChanged = changedFiles.any {
+//                        it.startsWith("expense-tracker-service/") || it == "Dockerfile" || it == "Jenkinsfile"
+//                    }
 
                     // Trigger Render deployment using the deploy hook URL
-                    def frontendResponse = httpRequest(
-                            url: "${RENDER_FRONTEND_DEPLOY_HOOK}",
-                            httpMode: 'POST',
-                            validResponseCodes: '200:299'
-                    )
-                    echo "Render Frontend API Response: ${frontendResponse}"
+                    if(changedFiles.contains("expense-tracker-service/")) {
+                        echo "Changes detected in backend. Deploying backend....."
+                        def backendResponse = httpRequest(
+                                url: "${RENDER_BACKEND_DEPLOY_HOOK}",
+                                httpMode: 'POST',
+                                validResponseCodes: '200:299'
+                        )
+                        echo "Render Backend API Response: ${backendResponse}"
+                    }
+
+                    // Trigger Render deployment using the deploy hook URL
+                    if(changedFiles.contains("expense-tracker-ui/")) {
+                        echo "Changes detected in frontend. Deploying frontend....."
+                        def frontendResponse = httpRequest(
+                                url: "${RENDER_FRONTEND_DEPLOY_HOOK}",
+                                httpMode: 'POST',
+                                validResponseCodes: '200:299'
+                        )
+                        echo "Render Frontend API Response: ${frontendResponse}"
+                    }
                 }
             }
         }

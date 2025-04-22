@@ -15,7 +15,7 @@ pipeline {
         RENDER_BACKEND_SERVICE_ID = 'srv-cv2udl2j1k6c739pp0lg'
         RENDER_BACKEND_DEPLOY_HOOK = "https://api.render.com/deploy/${RENDER_BACKEND_SERVICE_ID}?key=HH45VpzmZPA"
         RENDER_FRONTEND_SERVICE_ID = 'srv-d02k9ajuibrs73avrthg'
-        RENDER_FRONTEND_DEPLOY_HOOK = "https://api.render.com/deploy/${RENDER_FRONTEND_SERVICE_ID}?key=HH45VpzmZPA"
+        RENDER_FRONTEND_DEPLOY_HOOK = "https://api.render.com/deploy/${RENDER_FRONTEND_SERVICE_ID}?key=TbPZe9yi_PI"
     }
 
     stages {

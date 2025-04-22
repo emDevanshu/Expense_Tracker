@@ -92,8 +92,9 @@ pipeline {
                 script {
 
                     def changedFiles = sh(script: 'git diff --name-only HEAD HEAD~1', returnStdout: true).trim();
+                    echo "Changed files:\n${changedFiles}"
 //                    def changedFiles = sh(script: 'git diff --name-only HEAD HEAD~1', returnStdout: true).split('\n');
-                    echo "Changed files:\n${changedFiles.join('\n')}"
+//                    echo "Changed files:\n${changedFiles.join('\n')}"
 
 //                    def backendChanged = changedFiles.any {
 //                        it.startsWith("expense-tracker-service/") || it == "Dockerfile" || it == "Jenkinsfile"

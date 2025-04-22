@@ -114,11 +114,13 @@ pipeline {
                                 validResponseCodes: '200:299'
                         )
                         echo "Render Backend API Response: ${backendResponse}"
+                    } else {
+                        echo "No backend changes detected. Skipping backend deployment."
                     }
 
                     // Trigger Render deployment using the deploy hook URL
 //                    if(changedFiles.contains("expense-tracker-ui/")) {
-                    if(backendChanged) {
+                    if(frontendChanged) {
                         echo "Changes detected in frontend. Deploying frontend....."
                         def frontendResponse = httpRequest(
                                 url: "${RENDER_FRONTEND_DEPLOY_HOOK}",
@@ -126,6 +128,8 @@ pipeline {
                                 validResponseCodes: '200:299'
                         )
                         echo "Render Frontend API Response: ${frontendResponse}"
+                    } else {
+                        echo "No frontend changes detected. Skipping frontend deployment."
                     }
                 }
             }

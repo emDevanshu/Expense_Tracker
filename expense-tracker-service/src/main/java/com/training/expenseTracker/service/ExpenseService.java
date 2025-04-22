@@ -19,7 +19,8 @@ public class ExpenseService {
     }
 
     public void addExpense(Expense expense) {
-        expenseRepository.save(expense);
+        if(expense != null) expenseRepository.save(expense);
+        else throw new IllegalArgumentException();
     }
 
     public void deleteExpenseById(Integer id) {

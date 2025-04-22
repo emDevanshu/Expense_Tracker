@@ -2,6 +2,7 @@ package com.training.expenseTracker.service;
 
 import com.training.expenseTracker.exceptions.UserAlreadyExistsException;
 import com.training.expenseTracker.exceptions.UserLoginException;
+import com.training.expenseTracker.exceptions.UserNotExistsException;
 import com.training.expenseTracker.model.User;
 import com.training.expenseTracker.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,14 +15,14 @@ import java.util.Arrays;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 public class UserServiceTest {
     @Mock
     UserRepository userRepository;
 
-    @InjectMocks UserService userService;
+    @InjectMocks
+    UserService userService;
 
     private User user;
 
@@ -73,5 +74,45 @@ public class UserServiceTest {
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
 
         assertThrows(UserLoginException.class, () -> userService.loginUser(user.getEmail(), "wrongPassword"));
+    }
+
+    @Test
+    void testGetUserById_Success() {
+        when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
+
+        User result = userService.getUserById(user.getId());
+
+        assertEquals(user.getId(), result.getId());
+        verify(userRepository, times(1)).findById(user.getId());
+    }
+
+    @Test
+    void testGetUserById_NotFound() {
+        when(userRepository.findById(user.getId())).thenReturn(Optional.empty());
+
+        assertThrows(RuntimeException.class, () -> userService.getUserById(user.getId()));
+
+        verify(userRepository, times(1)).findById(user.getId());
+    }
+
+    @Test
+    void testAddUserInput() {
+        when(userRepository.save(user)).thenReturn(user);
+
+        User result = userService.addUserInput(user);
+
+        assertEquals(user.getName(), result.getName());
+        verify(userRepository, times(1)).save(user);
+    }
+
+    @Test
+    void testUpdateUserEmail() {
+        when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
+        when(userRepository.save(user)).thenReturn(user);
+
+        User result = userService.updateUserEmail(user.getId(), "newEmail@example.com");
+
+        assertEquals("newEmail@example.com", result.getEmail());
+        verify(userRepository, times(1)).save(user);
     }
 }

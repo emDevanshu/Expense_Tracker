@@ -91,17 +91,22 @@ pipeline {
             steps {
                 script {
 
-                    def changedFiles = sh(script: 'git diff --name-only HEAD HEAD~1', returnStdout: true).trim();
-                    echo "Changed files:\n${changedFiles}"
-//                    def changedFiles = sh(script: 'git diff --name-only HEAD HEAD~1', returnStdout: true).split('\n');
-//                    echo "Changed files:\n${changedFiles.join('\n')}"
+//                    def changedFiles = sh(script: 'git diff --name-only HEAD HEAD~1', returnStdout: true).trim();
+//                    echo "Changed files:\n${changedFiles}"
+                    def changedFiles = sh(script: 'git diff --name-only HEAD HEAD~1', returnStdout: true).split('\n');
+                    echo "Changed files:\n${changedFiles.join('\n')}"
 
-//                    def backendChanged = changedFiles.any {
-//                        it.startsWith("expense-tracker-service/") || it == "Dockerfile" || it == "Jenkinsfile"
-//                    }
+                    def backendChanged = changedFiles.any {
+                        it.startsWith("expense-tracker-service/") || it == "Dockerfile" || it == "Jenkinsfile"
+                    }
+
+                    def frontendChanged = changedFiles.any {
+                        it.startsWith("expense-tracker-ui/") || it == "Dockerfile" || it == "Jenkinsfile"
+                    }
 
                     // Trigger Render deployment using the deploy hook URL
-                    if(changedFiles.contains("expense-tracker-service/")) {
+//                    if(changedFiles.contains("expense-tracker-service/")) {
+                    if(backendChanged) {
                         echo "Changes detected in backend. Deploying backend....."
                         def backendResponse = httpRequest(
                                 url: "${RENDER_BACKEND_DEPLOY_HOOK}",
@@ -112,7 +117,8 @@ pipeline {
                     }
 
                     // Trigger Render deployment using the deploy hook URL
-                    if(changedFiles.contains("expense-tracker-ui/")) {
+//                    if(changedFiles.contains("expense-tracker-ui/")) {
+                    if(backendChanged) {
                         echo "Changes detected in frontend. Deploying frontend....."
                         def frontendResponse = httpRequest(
                                 url: "${RENDER_FRONTEND_DEPLOY_HOOK}",

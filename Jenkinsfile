@@ -24,13 +24,6 @@ pipeline {
                 git branch: 'main', credentialsId: 'Git token', url: 'https://github.com/emDevanshu/Expense_Tracker.git'
             }
         }
-//        stage('Build') {
-//            steps {
-//                script {
-//                    sh "cd expense-tracker-service && mvn clean install"
-//                }
-//            }
-//        }
         stage('Build') {
             parallel {
                 stage('Java') {
@@ -104,8 +97,6 @@ pipeline {
                         it.startsWith("expense-tracker-ui/") || it == "Dockerfile" || it == "Jenkinsfile"
                     }
 
-                    // Trigger Render deployment using the deploy hook URL
-//                    if(changedFiles.contains("expense-tracker-service/")) {
                     if(backendChanged) {
                         echo "Changes detected in backend. Deploying backend....."
                         def backendResponse = httpRequest(
@@ -118,8 +109,6 @@ pipeline {
                         echo "No backend changes detected. Skipping backend deployment."
                     }
 
-                    // Trigger Render deployment using the deploy hook URL
-//                    if(changedFiles.contains("expense-tracker-ui/")) {
                     if(frontendChanged) {
                         echo "Changes detected in frontend. Deploying frontend....."
                         def frontendResponse = httpRequest(

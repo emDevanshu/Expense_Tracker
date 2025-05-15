@@ -56,7 +56,7 @@ public class ExpenseControllerTest {
         mockMvc.perform(post("/api/v1/expense/add")
                         .contentType("application/json")
                         .content("{\"id\":2, \"title\":\"shirt\", \"amount\":2000.0, \"category\":\"Clothing\"}"))
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
 
         verify(expenseService, times(1)).addExpense(newExpense);
     }

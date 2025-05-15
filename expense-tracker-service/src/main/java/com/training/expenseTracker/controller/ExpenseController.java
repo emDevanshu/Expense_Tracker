@@ -42,8 +42,9 @@ public class ExpenseController {
     }
 
     @PostMapping("/add")
-    public void addExpense(@RequestBody Expense expense) {
+    public ResponseEntity<?> addExpense(@RequestBody Expense expense) {
         expenseService.addExpense(expense);
+        return new ResponseEntity<>("Expense added successfully", HttpStatus.CREATED);
     }
 
     @DeleteMapping("/delete")

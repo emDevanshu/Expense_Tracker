@@ -29,9 +29,11 @@ jobs:
       run: npm install -g newman
 
     - name: Build Spring Boot App
+      working-directory: expense-tracker/expense-tracker-service
       run: ./mvnw clean install
 
     - name: Run Spring Boot App in background
+      working-directory: expense-tracker/expense-tracker-service
       run: |
         nohup java -jar target/*.jar &
         sleep 10  # give time for the app to start

@@ -14,13 +14,30 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
+    - name: Set up Java 17
+      uses: actions/setup-java@v3
+      with:
+          distribution: 'temurin'
+          java-version: '17'
+
     - name: Install Node.js
       uses: actions/setup-node@v3
       with:
         node-version: '18'
 
+    - name: Install project dependencies
+      run: npm install
+
     - name: Install Newman
       run: npm install -g newman
+
+    - name: Build Spring Boot App
+      run: ./mvnw clean install
+
+    - name: Run Spring Boot App in background
+      run: |
+        nohup java -jar target/*.jar &
+        sleep 10  # give time for the app to start
 
     - name: Run API Tests with Newman
       run: newman run postman/newman_test.json

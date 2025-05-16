@@ -1,0 +1,227 @@
+{
+	"info": {
+		"_postman_id": "4cf1c106-5667-4200-8d09-47d5e7532df0",
+		"name": "Expense Tracker",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45000023",
+		"_collection_link": "https://devanshu-3573891.postman.co/workspace/Devanshu's-Workspace~eaf8fcc2-d3c5-4025-8f12-35582bba2610/collection/45000023-4cf1c106-5667-4200-8d09-47d5e7532df0?action=share&source=collection_link&creator=45000023"
+	},
+	"item": [
+		{
+			"name": "Show expense",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "insomnia/11.0.2",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:9876/api/v1/expense/show",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9876",
+					"path": [
+						"api",
+						"v1",
+						"expense",
+						"show"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Show user",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "insomnia/11.0.2",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:9876/api/v1/user/show",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9876",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"show"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add expense",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "User-Agent",
+						"value": "insomnia/11.0.2",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\" : \"chai\",\n\t\"amount\" : 15.0,\n\t\"category\" : \"Food\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9876/api/v1/expense/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9876",
+					"path": [
+						"api",
+						"v1",
+						"expense",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete expense",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "insomnia/11.0.2",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:9876/api/v1/expense/delete?id=7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9876",
+					"path": [
+						"api",
+						"v1",
+						"expense",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "7"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hello",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9876/api/v1/user/hello",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9876",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"hello"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login User",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9876/api/v1/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9876",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9876/api/v1/user/register",
+					"protocol":"http",
+					"host": [
+						"localhost"
+					],
+					"port":"9876",
+					"path":[
+						"api",
+						"v1",
+						"user",
+						"register"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
